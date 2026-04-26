@@ -25,13 +25,8 @@
     --search-hl:rgba(255,200,50,0.35);--fav:#E05C7A;
   }
   *{box-sizing:border-box;margin:0;padding:0;-webkit-tap-highlight-color:transparent}
-  html {
-    height: 100%; height: 100svh;
-    overflow: hidden;
-    background: #080604;
-  }
-  body {
-    height: 100%; height: 100svh;
+  html, body {
+    height: 100%;
     overflow: hidden;
     background: var(--bg);
     color: var(--text);
@@ -40,9 +35,8 @@
   #app {
     display: flex;
     flex-direction: column;
-    /* svh = smallest viewport height — exclui barras do browser */
-    height: 100vh;
-    height: 100svh;
+    /* --app-h é calculado pelo JS em tempo real para todos os browsers */
+    height: var(--app-h, 100vh);
     width: 100%;
     max-width: 480px;
     margin: 0 auto;
@@ -286,6 +280,24 @@
 </style>
 </head>
 <body>
+
+<script>
+  // Fix Chrome/Safari viewport height bug
+  // window.innerHeight é sempre o valor correto em todos os browsers
+  function setAppHeight() {
+    document.documentElement.style.setProperty('--app-h', window.innerHeight + 'px');
+  }
+  setAppHeight();
+  window.addEventListener('resize', setAppHeight);
+  // Re-calcula quando o teclado virtual abre/fecha (mobile)
+  window.addEventListener('orientationchange', function() {
+    setTimeout(setAppHeight, 300);
+  });
+  if (window.visualViewport) {
+    window.visualViewport.addEventListener('resize', setAppHeight);
+  }
+</script>
+
 <div id="app">
 
   <div id="loading"><div class="lcross"></div><p>CARREGANDO A BÍBLIA...</p></div>
