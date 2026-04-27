@@ -27,24 +27,20 @@
   *{box-sizing:border-box;margin:0;padding:0;-webkit-tap-highlight-color:transparent}
   html, body {
     height: 100%;
-    margin: 0;
-    padding: 0;
     overflow: hidden;
-    background: #080604;
+    background: var(--bg);
     color: var(--text);
     font-family: 'Outfit', sans-serif;
   }
   #app {
     display: flex;
     flex-direction: column;
-    /* position:fixed + inset:0 = ancora à viewport real em TODOS os browsers */
-    position: fixed;
-    top: 0;
-    left: 50%;
-    transform: translateX(-50%);
+    /* --app-h é calculado pelo JS em tempo real para todos os browsers */
+    height: var(--app-h, 100vh);
     width: 100%;
     max-width: 480px;
-    bottom: 0;
+    margin: 0 auto;
+    position: relative;
     overflow: hidden;
     box-shadow: 0 0 60px rgba(0,0,0,.8);
   }
@@ -227,7 +223,7 @@
   #loading p{font-size:13px;color:var(--text3);letter-spacing:1px}
 
   /* TOAST */
-  #toast{position:absolute;bottom:90px;left:50%;transform:translateX(-50%) translateY(20px);background:var(--bg4);border:.5px solid var(--border2);color:var(--text);padding:10px 18px;border-radius:24px;font-size:13px;opacity:0;transition:all .3s;pointer-events:none;white-space:nowrap;z-index:200}
+  #toast{position:fixed;bottom:90px;left:50%;transform:translateX(-50%) translateY(20px);background:var(--bg4);border:.5px solid var(--border2);color:var(--text);padding:10px 18px;border-radius:24px;font-size:13px;opacity:0;transition:all .3s;pointer-events:none;white-space:nowrap;z-index:200}
   #toast.on{opacity:1;transform:translateX(-50%) translateY(0)}
 
   /* FONT BTNS */
@@ -270,7 +266,7 @@
 
   /* ===== PWA STATUS BAR ===== */
   #pwa-status {
-    position: absolute; top: -40px; left: 50%; transform: translateX(-50%);
+    position: fixed; top: -40px; left: 50%; transform: translateX(-50%);
     background: rgba(15,13,10,.95); border: .5px solid var(--border2);
     border-radius: 20px; padding: 6px 14px;
     font-size: 11px; color: var(--text3);
@@ -278,4 +274,8 @@
     z-index: 250; transition: top .35s ease; white-space: nowrap;
   }
   #pwa-status.show { top: 8px; }
-  .pwa-dot { width: 6px; height: 6px; border-radius: 3px; background: #4CAF50; 
+  .pwa-dot { width: 6px; height: 6px; border-radius: 3px; background: #4CAF50; }
+  .pwa-dot.off { background: var(--text3); }
+
+</style>
+</h
